@@ -8,7 +8,6 @@ export class AuthController {
   @Get('google')
   @UseGuards(AuthGuard('google'))
   async googleAuth() {
-    // Redirección manejada automáticamente por Passport
   }
 
   @Get('google/redirect')

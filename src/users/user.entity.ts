@@ -15,10 +15,10 @@ export class User {
   email: string;
 
   @Column({ nullable: true })
-  password?: string; // Opcional para soportar modelo híbrido (login local vs federado)
+  password?: string; 
 
   @Column({ unique: true, nullable: true })
-  googleId?: string; // Identificador único provisto por Google
+  googleId?: string; 
 
   @Column({ nullable: true })
   firstName?: string;
@@ -27,7 +27,7 @@ export class User {
   lastName?: string;
 
   @Column({ nullable: true })
-  picture?: string; // URL de la foto de perfil
+  picture?: string; 
 
   @CreateDateColumn()
   createdAt: Date;

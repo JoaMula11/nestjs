@@ -18,22 +18,18 @@ export class AuthService {
   ) {}
 
   async validateGoogleUser(profile: GoogleProfilePayload) {
-    // 1. Buscar si el usuario ya existe por su googleId
     let user = await this.usersService.findByGoogleId(profile.googleId);
 
     if (!user) {
-      // 2. Buscar si existe por email para evitar registros duplicados
       user = await this.usersService.findByEmail(profile.email);
 
       if (user) {
-        // Enlazar cuenta existente local con Google
         user = await this.usersService.linkGoogleAccount(
           user.id,
           profile.googleId,
           profile.picture,
         );
       } else {
-        // 3. Crear nuevo usuario federado si no existe
         user = await this.usersService.createGoogleUser({
           email: profile.email,
           googleId: profile.googleId,
@@ -44,7 +40,6 @@ export class AuthService {
       }
     }
 
-    // 4. Firmar el token JWT propio de la aplicación
     const payload = { sub: user.id, email: user.email };
     const accessToken = this.jwtService.sign(payload);
 
